@@ -1,0 +1,14 @@
+version: '3'
+services:
+  redisnode01:
+    image: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - .:/data/
+  node-app:
+    depends_on:
+      - "redisnode01"
+    build: .
+    ports: 
+      - "4001:8081"
