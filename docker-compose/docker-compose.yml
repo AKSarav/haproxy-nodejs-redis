@@ -4,11 +4,15 @@ services:
     image: redis
     ports:
       - "6379:6379"
-    volumes:
-      - .:/data/
-  node-app:
+  nodejsserver01:
     depends_on:
       - "redisnode01"
-    build: .
+    image: my-nodejs
     ports: 
-      - "4001:8081"
+      - "8081:8081"
+  haproxyserver:
+    depends_on:
+      - "nodejsserver01"
+    image: my-haproxy
+    ports: 
+      - "90:80"
